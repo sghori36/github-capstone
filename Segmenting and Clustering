@@ -1,0 +1,1018 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import requests\n",
+    "import pandas as pd"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "ModuleNotFoundError",
+     "evalue": "No module named 'bs4'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-8-f33cf0cb8fd3>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0;32mfrom\u001b[0m \u001b[0mbs4\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mBeautifulSoup\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mModuleNotFoundError\u001b[0m: No module named 'bs4'"
+     ]
+    }
+   ],
+   "source": [
+    "from bs4 import BeautifulSoup"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Collecting bs4\n",
+      "  Downloading https://files.pythonhosted.org/packages/10/ed/7e8b97591f6f456174139ec089c769f89a94a1a4025fe967691de971f314/bs4-0.0.1.tar.gz\n",
+      "Collecting beautifulsoup4 (from bs4)\n",
+      "\u001b[?25l  Downloading https://files.pythonhosted.org/packages/cb/a1/c698cf319e9cfed6b17376281bd0efc6bfc8465698f54170ef60a485ab5d/beautifulsoup4-4.8.2-py3-none-any.whl (106kB)\n",
+      "\u001b[K     |████████████████████████████████| 112kB 8.9MB/s eta 0:00:01\n",
+      "\u001b[?25hCollecting soupsieve>=1.2 (from beautifulsoup4->bs4)\n",
+      "  Downloading https://files.pythonhosted.org/packages/81/94/03c0f04471fc245d08d0a99f7946ac228ca98da4fa75796c507f61e688c2/soupsieve-1.9.5-py2.py3-none-any.whl\n",
+      "Building wheels for collected packages: bs4\n",
+      "  Building wheel for bs4 (setup.py) ... \u001b[?25ldone\n",
+      "\u001b[?25h  Stored in directory: /home/jupyterlab/.cache/pip/wheels/a0/b0/b2/4f80b9456b87abedbc0bf2d52235414c3467d8889be38dd472\n",
+      "Successfully built bs4\n",
+      "Installing collected packages: soupsieve, beautifulsoup4, bs4\n",
+      "Successfully installed beautifulsoup4-4.8.2 bs4-0.0.1 soupsieve-1.9.5\n",
+      "Note: you may need to restart the kernel to use updated packages.\n"
+     ]
+    }
+   ],
+   "source": [
+    "pip install bs4"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from bs4 import BeautifulSoup"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "FeatureNotFound",
+     "evalue": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mFeatureNotFound\u001b[0m                           Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-11-90f551ee314b>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m      2\u001b[0m \u001b[0murl\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m\"https://en.wikipedia.org/wiki/List_of_postal_codes_of_Canada:_M\"\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0msource\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mrequests\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0murl\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mtext\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 4\u001b[0;31m \u001b[0mCanada_data\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mBeautifulSoup\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0msource\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m'lxml'\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;32m~/conda/envs/python/lib/python3.6/site-packages/bs4/__init__.py\u001b[0m in \u001b[0;36m__init__\u001b[0;34m(self, markup, features, builder, parse_only, from_encoding, exclude_encodings, element_classes, **kwargs)\u001b[0m\n\u001b[1;32m    226\u001b[0m                     \u001b[0;34m\"Couldn't find a tree builder with the features you \"\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    227\u001b[0m                     \u001b[0;34m\"requested: %s. Do you need to install a parser library?\"\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 228\u001b[0;31m                     % \",\".join(features))\n\u001b[0m\u001b[1;32m    229\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    230\u001b[0m         \u001b[0;31m# At this point either we have a TreeBuilder instance in\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mFeatureNotFound\u001b[0m: Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?"
+     ]
+    }
+   ],
+   "source": [
+    "# download url data from internet\n",
+    "url = \"https://en.wikipedia.org/wiki/List_of_postal_codes_of_Canada:_M\"\n",
+    "source = requests.get(url).text\n",
+    "Canada_data = BeautifulSoup(source, 'lxml')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[['Postcode', 'Borough', 'Neighbourhood'],\n",
+       " ['M1A', 'Not assigned', 'Not assigned'],\n",
+       " ['M2A', 'Not assigned', 'Not assigned'],\n",
+       " ['M3A', 'North York', 'Parkwoods'],\n",
+       " ['M4A', 'North York', 'Victoria Village'],\n",
+       " ['M5A', 'Downtown Toronto', 'Harbourfront'],\n",
+       " ['M6A', 'North York', 'Lawrence Heights'],\n",
+       " ['M6A', 'North York', 'Lawrence Manor'],\n",
+       " ['M7A', 'Downtown Toronto', \"Queen's Park\"],\n",
+       " ['M8A', 'Not assigned', 'Not assigned']]"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "url = \"https://en.wikipedia.org/wiki/List_of_postal_codes_of_Canada:_M\"\n",
+    "\n",
+    "text_result = requests.get(url).text #get the entire html of the article as a str\n",
+    "html_parsed_result = BeautifulSoup(text_result, 'html.parser') #transform the text to html\n",
+    "\n",
+    "neightborhood_info_table = html_parsed_result.find('table', class_ = 'wikitable')\n",
+    "neightborhood_rows = neightborhood_info_table.find_all('tr')\n",
+    "\n",
+    "# extract the info ('Postcode', 'Borough', 'Neighbourhood') from the table\n",
+    "neightborhood_info = []\n",
+    "for row in neightborhood_rows:\n",
+    "    info = row.text.split('\\n')[1:-1] # remove empty str (first and last items)\n",
+    "    neightborhood_info.append(info)\n",
+    "    \n",
+    "neightborhood_info[0:10]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Postcode</th>\n",
+       "      <th>Borough</th>\n",
+       "      <th>Neighborhood</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>M1A</td>\n",
+       "      <td>Not assigned</td>\n",
+       "      <td>Not assigned</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>M2A</td>\n",
+       "      <td>Not assigned</td>\n",
+       "      <td>Not assigned</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>M3A</td>\n",
+       "      <td>North York</td>\n",
+       "      <td>Parkwoods</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>M4A</td>\n",
+       "      <td>North York</td>\n",
+       "      <td>Victoria Village</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>M5A</td>\n",
+       "      <td>Downtown Toronto</td>\n",
+       "      <td>Harbourfront</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>M6A</td>\n",
+       "      <td>North York</td>\n",
+       "      <td>Lawrence Heights</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>6</th>\n",
+       "      <td>M6A</td>\n",
+       "      <td>North York</td>\n",
+       "      <td>Lawrence Manor</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>M7A</td>\n",
+       "      <td>Downtown Toronto</td>\n",
+       "      <td>Queen's Park</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>8</th>\n",
+       "      <td>M8A</td>\n",
+       "      <td>Not assigned</td>\n",
+       "      <td>Not assigned</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9</th>\n",
+       "      <td>M9A</td>\n",
+       "      <td>Queen's Park</td>\n",
+       "      <td>Not assigned</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "  Postcode           Borough      Neighborhood\n",
+       "0      M1A      Not assigned      Not assigned\n",
+       "1      M2A      Not assigned      Not assigned\n",
+       "2      M3A        North York         Parkwoods\n",
+       "3      M4A        North York  Victoria Village\n",
+       "4      M5A  Downtown Toronto      Harbourfront\n",
+       "5      M6A        North York  Lawrence Heights\n",
+       "6      M6A        North York    Lawrence Manor\n",
+       "7      M7A  Downtown Toronto      Queen's Park\n",
+       "8      M8A      Not assigned      Not assigned\n",
+       "9      M9A      Queen's Park      Not assigned"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#create a Neighborhoods dataframe\n",
+    "neightborhood_info[0][-1] = 'Neighborhood' # change to american spelling\n",
+    "neighborhood_df = pd.DataFrame(neightborhood_info[1:], columns=neightborhood_info[0])\n",
+    "\n",
+    "neighborhood_df.head(10)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "The DataFrame shape is (287, 3) \n",
+      "\n",
+      "There are:\n",
+      "  180 Postal codes\n",
+      "  11 Boroughs\n",
+      "  207 Neighborhoods\n",
+      "  77 rows with Not assigned Borough\n",
+      "  78 rows with Not assigned Neighborhood\n",
+      "  77 rows with Not assigned Neighborhood and Borough \n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "not_assigned_boroughs = neighborhood_df.index[neighborhood_df['Borough'] == 'Not assigned']\n",
+    "not_assigned_neighborhoods = neighborhood_df.index[neighborhood_df['Neighborhood'] == 'Not assigned']\n",
+    "not_assigned_neighborhoods_and_borough = not_assigned_boroughs & not_assigned_neighborhoods\n",
+    "\n",
+    "print('The DataFrame shape is {}'.format(neighborhood_df.shape),'\\n')\n",
+    "print('There are:')\n",
+    "print('  {} Postal codes'.format(neighborhood_df['Postcode'].unique().shape[0]))\n",
+    "print('  {} Boroughs'.format(neighborhood_df['Borough'].unique().shape[0] - 1)) # substract one because \"not assigned\" doesn't count\n",
+    "print('  {} Neighborhoods'.format(neighborhood_df['Neighborhood'].unique().shape[0] - 1)) # substract one because \"not assigned\" doesn't count\n",
+    "print('  {} rows with Not assigned Borough'.format(not_assigned_boroughs.shape[0]))\n",
+    "print('  {} rows with Not assigned Neighborhood'.format(not_assigned_neighborhoods.shape[0]))\n",
+    "print('  {} rows with Not assigned Neighborhood and Borough'.format(not_assigned_neighborhoods_and_borough.shape[0]),'\\n')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Postcode</th>\n",
+       "      <th>Borough</th>\n",
+       "      <th>Neighborhood</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>M3A</td>\n",
+       "      <td>North York</td>\n",
+       "      <td>Parkwoods</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>M4A</td>\n",
+       "      <td>North York</td>\n",
+       "      <td>Victoria Village</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>M5A</td>\n",
+       "      <td>Downtown Toronto</td>\n",
+       "      <td>Harbourfront</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>M6A</td>\n",
+       "      <td>North York</td>\n",
+       "      <td>Lawrence Heights</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>M6A</td>\n",
+       "      <td>North York</td>\n",
+       "      <td>Lawrence Manor</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>M7A</td>\n",
+       "      <td>Downtown Toronto</td>\n",
+       "      <td>Queen's Park</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>6</th>\n",
+       "      <td>M9A</td>\n",
+       "      <td>Queen's Park</td>\n",
+       "      <td>Not assigned</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>M1B</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>Rouge</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>8</th>\n",
+       "      <td>M1B</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>Malvern</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9</th>\n",
+       "      <td>M3B</td>\n",
+       "      <td>North York</td>\n",
+       "      <td>Don Mills North</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "  Postcode           Borough      Neighborhood\n",
+       "0      M3A        North York         Parkwoods\n",
+       "1      M4A        North York  Victoria Village\n",
+       "2      M5A  Downtown Toronto      Harbourfront\n",
+       "3      M6A        North York  Lawrence Heights\n",
+       "4      M6A        North York    Lawrence Manor\n",
+       "5      M7A  Downtown Toronto      Queen's Park\n",
+       "6      M9A      Queen's Park      Not assigned\n",
+       "7      M1B       Scarborough             Rouge\n",
+       "8      M1B       Scarborough           Malvern\n",
+       "9      M3B        North York   Don Mills North"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "neighborhood_df.drop(neighborhood_df.index[not_assigned_boroughs], inplace=True)\n",
+    "neighborhood_df.reset_index(drop=True, inplace=True)\n",
+    "\n",
+    "neighborhood_df.head(10)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Postcode</th>\n",
+       "      <th>Borough</th>\n",
+       "      <th>Neighborhood</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>M3A</td>\n",
+       "      <td>North York</td>\n",
+       "      <td>Parkwoods</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>M4A</td>\n",
+       "      <td>North York</td>\n",
+       "      <td>Victoria Village</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>M5A</td>\n",
+       "      <td>Downtown Toronto</td>\n",
+       "      <td>Harbourfront</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>M6A</td>\n",
+       "      <td>North York</td>\n",
+       "      <td>Lawrence Heights</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>M6A</td>\n",
+       "      <td>North York</td>\n",
+       "      <td>Lawrence Manor</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>M7A</td>\n",
+       "      <td>Downtown Toronto</td>\n",
+       "      <td>Queen's Park</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>6</th>\n",
+       "      <td>M9A</td>\n",
+       "      <td>Queen's Park</td>\n",
+       "      <td>Queen's Park</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>M1B</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>Rouge</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>8</th>\n",
+       "      <td>M1B</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>Malvern</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9</th>\n",
+       "      <td>M3B</td>\n",
+       "      <td>North York</td>\n",
+       "      <td>Don Mills North</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "  Postcode           Borough      Neighborhood\n",
+       "0      M3A        North York         Parkwoods\n",
+       "1      M4A        North York  Victoria Village\n",
+       "2      M5A  Downtown Toronto      Harbourfront\n",
+       "3      M6A        North York  Lawrence Heights\n",
+       "4      M6A        North York    Lawrence Manor\n",
+       "5      M7A  Downtown Toronto      Queen's Park\n",
+       "6      M9A      Queen's Park      Queen's Park\n",
+       "7      M1B       Scarborough             Rouge\n",
+       "8      M1B       Scarborough           Malvern\n",
+       "9      M3B        North York   Don Mills North"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "not_assigned_neighborhoods = neighborhood_df.index[neighborhood_df['Neighborhood'] == 'Not assigned'] # run this again because the indexes on the dataframe where reset\n",
+    "\n",
+    "for idx in not_assigned_neighborhoods:\n",
+    "    neighborhood_df['Neighborhood'][idx] = neighborhood_df['Borough'][idx]\n",
+    "    \n",
+    "neighborhood_df.head(10)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "After cleaning the DataFrame, its new shape is (210, 3) \n",
+      "\n",
+      "There are:\n",
+      "  103 Postal codes\n",
+      "  11 Boroughs\n",
+      "  207 Neighborhoods\n"
+     ]
+    }
+   ],
+   "source": [
+    "print('After cleaning the DataFrame, its new shape is {}'.format(neighborhood_df.shape),'\\n')\n",
+    "print('There are:')\n",
+    "print('  {} Postal codes'.format(neighborhood_df['Postcode'].unique().shape[0]))\n",
+    "print('  {} Boroughs'.format(neighborhood_df['Borough'].unique().shape[0]))\n",
+    "print('  {} Neighborhoods'.format(neighborhood_df['Neighborhood'].unique().shape[0]))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Postcode</th>\n",
+       "      <th>Borough</th>\n",
+       "      <th>Neighborhood</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>M1B</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>Rouge, Malvern</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>M1C</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>Highland Creek, Rouge Hill, Port Union</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>M1E</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>Guildwood, Morningside, West Hill</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>M1G</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>Woburn</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>M1H</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>Cedarbrae</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>M1J</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>Scarborough Village</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>6</th>\n",
+       "      <td>M1K</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>East Birchmount Park, Ionview, Kennedy Park</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>M1L</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>Clairlea, Golden Mile, Oakridge</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>8</th>\n",
+       "      <td>M1M</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>Cliffcrest, Cliffside, Scarborough Village West</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9</th>\n",
+       "      <td>M1N</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>Birch Cliff, Cliffside West</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "  Postcode      Borough                                     Neighborhood\n",
+       "0      M1B  Scarborough                                   Rouge, Malvern\n",
+       "1      M1C  Scarborough           Highland Creek, Rouge Hill, Port Union\n",
+       "2      M1E  Scarborough                Guildwood, Morningside, West Hill\n",
+       "3      M1G  Scarborough                                           Woburn\n",
+       "4      M1H  Scarborough                                        Cedarbrae\n",
+       "5      M1J  Scarborough                              Scarborough Village\n",
+       "6      M1K  Scarborough      East Birchmount Park, Ionview, Kennedy Park\n",
+       "7      M1L  Scarborough                  Clairlea, Golden Mile, Oakridge\n",
+       "8      M1M  Scarborough  Cliffcrest, Cliffside, Scarborough Village West\n",
+       "9      M1N  Scarborough                      Birch Cliff, Cliffside West"
+      ]
+     },
+     "execution_count": 18,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "group = neighborhood_df.groupby('Postcode')\n",
+    "grouped_neighborhoods = group['Neighborhood'].apply(lambda x: \"%s\" % ', '.join(x))\n",
+    "grouped_boroughs = group['Borough'].apply(lambda x: set(x).pop())\n",
+    "grouped_df = pd.DataFrame(list(zip(grouped_boroughs.index, grouped_boroughs, grouped_neighborhoods)))\n",
+    "grouped_df.columns = ['Postcode', 'Borough', 'Neighborhood']\n",
+    "\n",
+    "grouped_df.head(10)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "The DataFrame shape is (103, 3)\n"
+     ]
+    }
+   ],
+   "source": [
+    "print('The DataFrame shape is', grouped_df.shape)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Latitude</th>\n",
+       "      <th>Longitude</th>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Postal Code</th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>M1B</th>\n",
+       "      <td>43.806686</td>\n",
+       "      <td>-79.194353</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>M1C</th>\n",
+       "      <td>43.784535</td>\n",
+       "      <td>-79.160497</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>M1E</th>\n",
+       "      <td>43.763573</td>\n",
+       "      <td>-79.188711</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>M1G</th>\n",
+       "      <td>43.770992</td>\n",
+       "      <td>-79.216917</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>M1H</th>\n",
+       "      <td>43.773136</td>\n",
+       "      <td>-79.239476</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "              Latitude  Longitude\n",
+       "Postal Code                      \n",
+       "M1B          43.806686 -79.194353\n",
+       "M1C          43.784535 -79.160497\n",
+       "M1E          43.763573 -79.188711\n",
+       "M1G          43.770992 -79.216917\n",
+       "M1H          43.773136 -79.239476"
+      ]
+     },
+     "execution_count": 22,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "toronto_geocsv = 'https://cocl.us/Geospatial_data'\n",
+    "!wget -q -O 'toronto_m.geospatial_data.csv' toronto_geocsv\n",
+    "geocsv_data = pd.read_csv(toronto_geocsv).set_index(\"Postal Code\")\n",
+    "geocsv_data.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Saved Toronto postal codes with borough and neighbors.\n",
+    "toronto_task1_csv = \"Toronto.TASK_1_df.csv\"\n",
+    "# Saved Toronto postal codes with borough,neighbors,Longitude and Latitude.\n",
+    "toronto_task2_csv = \"Toronto.TASK_II_df.csv\""
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 38,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "After cleaning the DataFrame, its new shape is (210, 3) \n",
+      "\n",
+      "There are:\n",
+      "  103 Postal codes\n",
+      "  11 Boroughs\n",
+      "  207 Neighborhoods\n"
+     ]
+    }
+   ],
+   "source": [
+    "print('After cleaning the DataFrame, its new shape is {}'.format(neighborhood_df.shape),'\\n')\n",
+    "print('There are:')\n",
+    "print('  {} Postal codes'.format(neighborhood_df['Postcode'].unique().shape[0]))\n",
+    "print('  {} Boroughs'.format(neighborhood_df['Borough'].unique().shape[0]))\n",
+    "print('  {} Neighborhoods'.format(neighborhood_df['Neighborhood'].unique().shape[0]))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 39,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Postcode</th>\n",
+       "      <th>Borough</th>\n",
+       "      <th>Neighborhood</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>M1B</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>Rouge, Malvern</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>M1C</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>Highland Creek, Rouge Hill, Port Union</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>M1E</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>Guildwood, Morningside, West Hill</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>M1G</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>Woburn</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>M1H</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>Cedarbrae</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>M1J</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>Scarborough Village</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>6</th>\n",
+       "      <td>M1K</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>East Birchmount Park, Ionview, Kennedy Park</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>M1L</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>Clairlea, Golden Mile, Oakridge</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>8</th>\n",
+       "      <td>M1M</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>Cliffcrest, Cliffside, Scarborough Village West</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9</th>\n",
+       "      <td>M1N</td>\n",
+       "      <td>Scarborough</td>\n",
+       "      <td>Birch Cliff, Cliffside West</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "  Postcode      Borough                                     Neighborhood\n",
+       "0      M1B  Scarborough                                   Rouge, Malvern\n",
+       "1      M1C  Scarborough           Highland Creek, Rouge Hill, Port Union\n",
+       "2      M1E  Scarborough                Guildwood, Morningside, West Hill\n",
+       "3      M1G  Scarborough                                           Woburn\n",
+       "4      M1H  Scarborough                                        Cedarbrae\n",
+       "5      M1J  Scarborough                              Scarborough Village\n",
+       "6      M1K  Scarborough      East Birchmount Park, Ionview, Kennedy Park\n",
+       "7      M1L  Scarborough                  Clairlea, Golden Mile, Oakridge\n",
+       "8      M1M  Scarborough  Cliffcrest, Cliffside, Scarborough Village West\n",
+       "9      M1N  Scarborough                      Birch Cliff, Cliffside West"
+      ]
+     },
+     "execution_count": 39,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "group = neighborhood_df.groupby('Postcode')\n",
+    "grouped_neighborhoods = group['Neighborhood'].apply(lambda x: \"%s\" % ', '.join(x))\n",
+    "grouped_boroughs = group['Borough'].apply(lambda x: set(x).pop())\n",
+    "grouped_df = pd.DataFrame(list(zip(grouped_boroughs.index, grouped_boroughs, grouped_neighborhoods)))\n",
+    "grouped_df.columns = ['Postcode', 'Borough', 'Neighborhood']\n",
+    "\n",
+    "grouped_df.head(10)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 40,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "The DataFrame shape is (103, 3)\n"
+     ]
+    }
+   ],
+   "source": [
+    "print('The DataFrame shape is', grouped_df.shape)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python",
+   "language": "python",
+   "name": "conda-env-python-py"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
